@@ -1,3 +1,5 @@
+<?php require_once 'dbconfig.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,10 +31,41 @@
             <textarea class="form-control" name="address" required></textarea>
         </div>
 
- 
-            <input type="submit" name="insert" value="Submit">
+
+        <input type="submit" name="insert" value="Submit">
 
     </form>
+
+
+    <?php
+    $sql = "SELECT FirstName,LastName,EmailId,ContactNumber,Address,PostingDate,id from tblusers";
+    // query:
+    $query = $dbh->prepare($sql);
+    $query->execute();
+
+    //Assign the data which you pulled from the database (in the preceding step) to a variable.
+    $results = $query->fetchAll(PDO::FETCH_OBJ);
+
+    // For serial number initialization
+    $cnt = 1;
+    if ($query->rowCount() > 0) {
+        //In case that the query returned at least one record, we can echo the records within a foreach loop:
+        foreach ($results as $result) {
+    ?><!-- Display Records -->
+          
+             <?php echo htmlentities($cnt); ?>
+               <?php echo htmlentities($result->FirstName); ?>
+            <?php echo htmlentities($result->LastName); ?>
+                <?php echo htmlentities($result->EmailId); ?>
+                <?php echo htmlentities($result->ContactNumber); ?>
+                <?php echo htmlentities($result->Address); ?>
+                <?php echo htmlentities($result->PostingDate); ?>
+              <br />
+    <?php
+            // for serial number increment
+            $cnt++;
+        }
+    } ?>
 </body>
 
 </html>
