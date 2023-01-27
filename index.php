@@ -1,5 +1,7 @@
 <?php require_once 'dbconfig.php'; ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,15 +54,19 @@
         //In case that the query returned at least one record, we can echo the records within a foreach loop:
         foreach ($results as $result) {
     ?><!-- Display Records -->
-          
-             <?php echo htmlentities($cnt); ?>
-               <?php echo htmlentities($result->FirstName); ?>
+
+            <?php echo htmlentities($cnt); ?>
+            <?php echo htmlentities($result->FirstName); ?>
             <?php echo htmlentities($result->LastName); ?>
-                <?php echo htmlentities($result->EmailId); ?>
-                <?php echo htmlentities($result->ContactNumber); ?>
-                <?php echo htmlentities($result->Address); ?>
-                <?php echo htmlentities($result->PostingDate); ?>
-              <br />
+            <?php echo htmlentities($result->EmailId); ?>
+            <?php echo htmlentities($result->ContactNumber); ?>
+            <?php echo htmlentities($result->Address); ?>
+            <?php echo htmlentities($result->PostingDate); ?>
+            <a href="update.php?id=<?php echo htmlentities($result->id); ?>"><button><span>EDIT</span></button></a>
+            <a href="index.php?del=<?php echo htmlentities($result->id); ?>"><button class="btn btn-danger btn-xs" onClick="return confirm('Do you really want to delete');"><span>DELETE</span></button></a></td>
+            <br />
+
+
     <?php
             // for serial number increment
             $cnt++;
